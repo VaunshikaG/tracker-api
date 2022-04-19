@@ -1,7 +1,6 @@
 package com.tapi.trackerapi.filters;
 
 import com.tapi.trackerapi.Constants;
-import com.tapi.trackerapi.exceptions.TAuthException;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import org.springframework.http.HttpStatus;

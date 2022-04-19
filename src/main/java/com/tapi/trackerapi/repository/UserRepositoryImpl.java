@@ -1,7 +1,7 @@
 package com.tapi.trackerapi.repository;
 
 import com.tapi.trackerapi.domain.User;
-import com.tapi.trackerapi.exceptions.TAuthException;
+import com.tapi.trackerapi.exceptions.Unauthorized;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -38,7 +38,7 @@ public class UserRepositoryImpl implements UserRepository{
     JdbcTemplate jdbcTemplate;
 
     @Override
-    public Integer create(String firstName, String lastName, String email, String password) throws TAuthException {
+    public Integer create(String firstName, String lastName, String email, String password) throws Unauthorized {
         String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt(10));
 
         try {
@@ -53,19 +53,19 @@ public class UserRepositoryImpl implements UserRepository{
             }, keyHolder);
             return (Integer) keyHolder.getKeys().get("USER_ID");
         } catch (Exception e) {
-            throw new TAuthException("Invalid details. Failed to create account");
+            throw new Unauthorized("Invalid details. Failed to create account");
         }
     }
 
     @Override
-    public User findByEmailAndPassword(String email, String password) throws TAuthException {
+    public User findByEmailAndPassword(String email, String password) throws Unauthorized {
         try {
             User user = jdbcTemplate.queryForObject(SQL_FIND_BY_EMAIL, new Object[]{email}, userRowMapper);
             if (!BCrypt.checkpw(password, user.getPassword()))
-                throw new TAuthException("Invalid email/password");
+                throw new Unauthorized("Invalid email/password");
             return user;
         } catch (Exception e) {
-            throw new TAuthException("Invalid email/password");
+            throw new Unauthorized("Invalid email/password");
         }
     }
 
