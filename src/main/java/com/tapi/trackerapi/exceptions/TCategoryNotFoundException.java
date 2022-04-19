@@ -3,10 +3,11 @@ package com.tapi.trackerapi.exceptions;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-@ResponseStatus(HttpStatus.FORBIDDEN)
-public class Forbidden extends RuntimeException{
+// 404
+@ResponseStatus(HttpStatus.NOT_FOUND)
+public class TCategoryNotFoundException extends RuntimeException {
 
-    public Forbidden(String message) {
+    public TCategoryNotFoundException(String message) {
         super(message);
     }
 }

@@ -3,11 +3,11 @@ package com.tapi.trackerapi.exceptions;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-// 405
-@ResponseStatus(HttpStatus.METHOD_NOT_ALLOWED)
-public class Method_not_allowed extends RuntimeException {
+//  400
+@ResponseStatus(HttpStatus.BAD_REQUEST)
+public class TBadRequestException extends RuntimeException{
 
-    public Method_not_allowed(String message) {
+    public TBadRequestException(String message) {
         super(message);
     }
 }

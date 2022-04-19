@@ -38,7 +38,7 @@ public class UserRepositoryImpl implements UserRepository{
     JdbcTemplate jdbcTemplate;
 
     @Override
-    public Integer create(String firstName, String lastName, String email, String password) throws Unauthorized {
+    public Integer create(String firstName, String lastName, String email, String password) throws Unauthorized  {
         String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt(10));
 
         try {
