@@ -7,7 +7,7 @@ import com.tapi.trackerapi.exceptions.Unauthorized;
 
 public interface UserService {
 
-    User validateUser(String email, String password) throws Unauthorized;
+    User validateUser(String email, String password, String token) throws Unauthorized;
 
     User registerUser(String firstName, String lastName, String email, String password) throws Unauthorized;
 }

@@ -24,7 +24,6 @@ public class AuthFilter extends GenericFilterBean {
         HttpServletRequest httpRequest = (HttpServletRequest) servletRequest;
         HttpServletResponse httpResponse = (HttpServletResponse) servletResponse;
 
-
         String authHeader = httpRequest.getHeader("Authorization");
         if (authHeader != null) {
             String[] authHeaderArr = authHeader.split("JWT ");

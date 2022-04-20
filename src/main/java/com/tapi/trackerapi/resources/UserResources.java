@@ -6,8 +6,10 @@ import com.tapi.trackerapi.services.UserService;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,24 +27,27 @@ public class UserResources {
     UserService userService;
 
     @PostMapping("/login")
-    public ResponseEntity<Map<String, String>> loginUser(@RequestBody Map<String, Object> userMap) {
+    public ResponseEntity<?> loginUser(@RequestBody Map<String, Object> userMap) {
         String email = (String) userMap.get("email");
         String password = (String) userMap.get("password");
-        User user = userService.validateUser(email, password);
+        String token = (String) userMap.get("token");
+        User user = userService.validateUser(email, password, token);
 
         //  before JWT token
         //  Map<String, String> map = new HashMap<>();
         //  map.put("message", "Login successful");
         //  return new ResponseEntity<>(map, HttpStatus.OK);
 
-
+        Map<String, String> map = new HashMap<>();
+        map.put("email", user.getFirstName());
+        map.put("password", user.getPassword());
         //  before JWT token
         return new ResponseEntity<>(generateToken(user), HttpStatus.OK);
     }
 
     @PostMapping("/register")
     //  ResponseEntity is extension of http entity through this we can also control statuscode, headers, etc
-    public ResponseEntity<Map<String, String>> registerUser(@RequestBody Map<String, Object> userMap) {
+    public ResponseEntity<?> registerUser(@RequestBody Map<String, Object> userMap) {
         String firstName = (String) userMap.get("firstName");
         String lastName = (String) userMap.get("lastName");
         String email = (String) userMap.get("email");
@@ -56,6 +61,7 @@ public class UserResources {
 
 
         //  before JWT token
+
         return new ResponseEntity<>(generateToken(user), HttpStatus.OK);
     }
 
@@ -72,6 +78,11 @@ public class UserResources {
                 .compact();
         //  compact builds token & stores it in variable "token"
         Map<String, String> map = new HashMap<>();
+        //  adding parameters to api response
+        map.put("userId", user.getUserId().toString());
+        map.put("email", user.getEmail());
+        map.put("firstName", user.getFirstName());
+        map.put("lastName", user.getLastName());
         map.put("token", token);
         return map;
     }
