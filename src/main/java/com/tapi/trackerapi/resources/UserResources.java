@@ -38,9 +38,7 @@ public class UserResources {
         //  map.put("message", "Login successful");
         //  return new ResponseEntity<>(map, HttpStatus.OK);
 
-        Map<String, String> map = new HashMap<>();
-        map.put("email", user.getFirstName());
-        map.put("password", user.getPassword());
+
         //  before JWT token
         return new ResponseEntity<>(generateToken(user), HttpStatus.OK);
     }
@@ -52,7 +50,8 @@ public class UserResources {
         String lastName = (String) userMap.get("lastName");
         String email = (String) userMap.get("email");
         String password = (String) userMap.get("password");
-        User user = userService.registerUser(firstName, lastName, email, password);
+        String token = (String) userMap.get("token");
+        User user = userService.registerUser(firstName, lastName, email, password, token);
 
         //  before JWT token
         //  Map<String, String> map = new HashMap<>();

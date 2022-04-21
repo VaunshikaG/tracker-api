@@ -24,7 +24,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User registerUser(String firstName, String lastName, String email, String password) throws Unauthorized {
+    public User registerUser(String firstName, String lastName, String email, String password, String token) throws Unauthorized {
         Pattern pattern = Pattern.compile("^(.+)@(.+)$");
         if(email != null) email = email.toLowerCase();
 
