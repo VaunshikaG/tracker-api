@@ -13,7 +13,7 @@ public interface CategoryService {
 
     Category addCategory(Integer userId, String title, String description) throws TBadRequestException;
 
-    void updateCategory(Integer userId, Integer categoryId, String description) throws TBadRequestException;
+    void updateCategory(Integer userId, Integer categoryId, Category category) throws TBadRequestException;
 
 //  cascade delete - to delete category we need to delete all the transactions as 1category can have many transactions
     void deleteCategoryWithAllTrans(Integer userId, Integer categoryId) throws TCategoryNotFoundException;

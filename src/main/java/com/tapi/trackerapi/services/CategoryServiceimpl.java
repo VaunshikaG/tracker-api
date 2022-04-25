@@ -20,12 +20,12 @@ public class CategoryServiceimpl implements CategoryService{
 
     @Override
     public List<Category> fetchallcategories(Integer userId) {
-        return null;
+        return categoryRepository.findall(userId);
     }
 
     @Override
     public Category fetchCategoryById(Integer userId, Integer categoryId) throws TCategoryNotFoundException {
-        return null;
+        return categoryRepository.findById(userId, categoryId);
     }
 
     @Override
@@ -37,8 +37,8 @@ public class CategoryServiceimpl implements CategoryService{
     }
 
     @Override
-    public void updateCategory(Integer userId, Integer categoryId, String description) throws TBadRequestException {
-
+    public void updateCategory(Integer userId, Integer categoryId, Category category) throws TBadRequestException {
+        categoryRepository.update(userId, categoryId, category);
     }
 
     @Override

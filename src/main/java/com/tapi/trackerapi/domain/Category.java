@@ -1,19 +1,10 @@
 package com.tapi.trackerapi.domain;
 
 public class Category {
-    private Integer categoryId;
     private Integer userId;
+    private Integer categoryId;
     private String title;
     private String description;
-    private double totalexpense;
-
-    public Integer getCategoryId() {
-        return categoryId;
-    }
-
-    public void setCategoryId(Integer categoryId) {
-        this.categoryId = categoryId;
-    }
 
     public Integer getUserId() {
         return userId;
@@ -21,6 +12,14 @@ public class Category {
 
     public void setUserId(Integer userId) {
         this.userId = userId;
+    }
+
+    public Integer getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(Integer categoryId) {
+        this.categoryId = categoryId;
     }
 
     public String getTitle() {
@@ -47,9 +46,13 @@ public class Category {
         this.totalexpense = totalexpense;
     }
 
-    public Category(Integer categoryId, Integer userId, String title, String description, double totalexpense) {
-        this.categoryId = categoryId;
+    private double totalexpense;
+
+
+
+    public Category(Integer userId, Integer categoryId, String title, String description, double totalexpense) {
         this.userId = userId;
+        this.categoryId = categoryId;
         this.title = title;
         this.description = description;
         this.totalexpense = totalexpense;
