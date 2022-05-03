@@ -1,16 +1,18 @@
 package com.tapi.trackerapi.resources;
 
+import com.tapi.trackerapi.Constants;
 import com.tapi.trackerapi.domain.Category;
+import com.tapi.trackerapi.domain.User;
 import com.tapi.trackerapi.services.CategoryService;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @RestController
 @RequestMapping("/api/categories")
@@ -22,28 +24,29 @@ public class CategoryResource {
     @GetMapping("")
     public ResponseEntity<List<Category>> getAllCategories(HttpServletRequest request) {
         int userId = (Integer) request.getAttribute("userId");
-        List<Category> categories = categoryService.fetchallcategories(userId);
-        return new ResponseEntity<>(categories, HttpStatus.OK);
-    }
-
-    @GetMapping("/{categoryId}")    //  categoryId as uri template variable
-    public ResponseEntity<Category> getCategoryById(HttpServletRequest request,
-                                                    @PathVariable("categoryId") Integer categoryId) {
-        int userId = (Integer) request.getAttribute("userId");
-        Category category = categoryService.fetchCategoryById(userId, categoryId);
+        List<Category> category = categoryService.fetchallcategories(userId);
         return new ResponseEntity<>(category, HttpStatus.OK);
     }
 
+    @GetMapping("/{categoryId}")    //  categoryId as uri template variable
+    public ResponseEntity<?> getCategoryById(HttpServletRequest request,
+                                                    @PathVariable("categoryId") Integer categoryId) {
+        int userId = (Integer) request.getAttribute("userId");
+        Category category = categoryService.fetchCategoryById(userId, categoryId);
+        return new ResponseEntity<>(Arrays.asList(category), HttpStatus.OK);
+    }
 
+    //  add
     @PostMapping("")
-    public ResponseEntity<Category> addCategory(HttpServletRequest request, @RequestBody Map<String, Object> categoryMap) {
+    public ResponseEntity<?> addCategory(HttpServletRequest request, @RequestBody Map<String, Object> categoryMap) {
         int userId = (Integer) request.getAttribute("userId");
         String title = (String) categoryMap.get("title");
         String description = (String) categoryMap.get("description");
         Category category = categoryService.addCategory(userId, title, description);
-        return new ResponseEntity<>(category, HttpStatus.CREATED);
+        return new ResponseEntity<>(mapp(category), HttpStatus.CREATED);
     }
 
+    //  update
     @PutMapping("/{categoryId}")
     public ResponseEntity<Map<String, Boolean>> updateCategory(HttpServletRequest request,
                                                                @PathVariable("categoryId") Integer categoryId,
@@ -53,5 +56,15 @@ public class CategoryResource {
         Map<String, Boolean> map = new HashMap<>();
         map.put("success", true);
         return new ResponseEntity<>(map, HttpStatus.OK);
+    }
+
+    private Map<String, String> mapp(Category category) {
+        Map<String, String> map = new HashMap<>();
+        //  adding parameters to api response
+        map.put("userId", category.getUserId().toString());
+        map.put("categoryId", category.getCategoryId().toString());
+        map.put("title", category.getTitle());
+        map.put("description", category.getDescription());
+        return map;
     }
 }
