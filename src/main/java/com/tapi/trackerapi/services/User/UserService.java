@@ -1,4 +1,4 @@
-package com.tapi.trackerapi.services;
+package com.tapi.trackerapi.services.User;
 
 //  logic is here central part of application
 

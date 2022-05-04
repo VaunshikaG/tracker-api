@@ -1,8 +1,8 @@
-package com.tapi.trackerapi.services;
+package com.tapi.trackerapi.services.User;
 
 import com.tapi.trackerapi.domain.User;
 import com.tapi.trackerapi.exceptions.Unauthorized;
-import com.tapi.trackerapi.repository.UserRepository;
+import com.tapi.trackerapi.repository.User.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

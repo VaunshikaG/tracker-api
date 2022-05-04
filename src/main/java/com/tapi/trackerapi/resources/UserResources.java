@@ -2,14 +2,12 @@ package com.tapi.trackerapi.resources;
 
 import com.tapi.trackerapi.Constants;
 import com.tapi.trackerapi.domain.User;
-import com.tapi.trackerapi.services.UserService;
+import com.tapi.trackerapi.services.User.UserService;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

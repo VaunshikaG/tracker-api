@@ -1,8 +1,8 @@
-package com.tapi.trackerapi.repository;
+package com.tapi.trackerapi.repository.Category;
 
 import com.tapi.trackerapi.domain.Category;
 import com.tapi.trackerapi.exceptions.TBadRequestException;
-import com.tapi.trackerapi.exceptions.TCategoryNotFoundException;
+import com.tapi.trackerapi.exceptions.TResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -29,16 +29,16 @@ public class CategoryRepositoryImpl implements CategoryRepository{
     JdbcTemplate jdbcTemplate;
 
     @Override
-    public List<Category> findall(Integer userId) throws TCategoryNotFoundException {
+    public List<Category> findall(Integer userId) throws TResourceNotFoundException {
         try {
             return jdbcTemplate.query(SQL_FIND_ALL, new Object[]{userId}, categoryRowMapper);
         } catch (Exception e) {
-            throw new TCategoryNotFoundException("Category not found");
+            throw new TResourceNotFoundException("Category not found");
         }
     }
 
     @Override
-    public Category findById(Integer userId, Integer categoryId) throws TCategoryNotFoundException {
+    public Category findById(Integer userId, Integer categoryId) throws TResourceNotFoundException {
         try {
             return jdbcTemplate.queryForObject(SQL_FIND_BY_ID, new Object[]{userId, categoryId}, categoryRowMapper);
         } catch (Exception e) {

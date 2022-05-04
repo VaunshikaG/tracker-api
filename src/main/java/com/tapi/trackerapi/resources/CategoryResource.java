@@ -1,11 +1,7 @@
 package com.tapi.trackerapi.resources;
 
-import com.tapi.trackerapi.Constants;
 import com.tapi.trackerapi.domain.Category;
-import com.tapi.trackerapi.domain.User;
-import com.tapi.trackerapi.services.CategoryService;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import com.tapi.trackerapi.services.Category.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

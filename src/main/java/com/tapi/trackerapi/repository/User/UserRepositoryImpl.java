@@ -1,4 +1,4 @@
-package com.tapi.trackerapi.repository;
+package com.tapi.trackerapi.repository.User;
 
 import com.tapi.trackerapi.domain.User;
 import com.tapi.trackerapi.exceptions.Unauthorized;

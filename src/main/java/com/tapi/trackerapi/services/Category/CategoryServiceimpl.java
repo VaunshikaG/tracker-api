@@ -1,9 +1,8 @@
-package com.tapi.trackerapi.services;
-
+package com.tapi.trackerapi.services.Category;
 import com.tapi.trackerapi.domain.Category;
 import com.tapi.trackerapi.exceptions.TBadRequestException;
-import com.tapi.trackerapi.exceptions.TCategoryNotFoundException;
-import com.tapi.trackerapi.repository.CategoryRepository;
+import com.tapi.trackerapi.exceptions.TResourceNotFoundException;
+import com.tapi.trackerapi.repository.Category.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,7 +23,7 @@ public class CategoryServiceimpl implements CategoryService{
     }
 
     @Override
-    public Category fetchCategoryById(Integer userId, Integer categoryId) throws TCategoryNotFoundException {
+    public Category fetchCategoryById(Integer userId, Integer categoryId) throws TResourceNotFoundException {
         return categoryRepository.findById(userId, categoryId);
     }
 
@@ -42,7 +41,7 @@ public class CategoryServiceimpl implements CategoryService{
     }
 
     @Override
-    public void deleteCategoryWithAllTrans(Integer userId, Integer categoryId) throws TCategoryNotFoundException {
+    public void deleteCategoryWithAllTrans(Integer userId, Integer categoryId) throws TResourceNotFoundException {
 
     }
 }

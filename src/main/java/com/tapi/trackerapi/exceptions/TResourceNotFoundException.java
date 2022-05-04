@@ -1,13 +1,12 @@
 package com.tapi.trackerapi.exceptions;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 // 404
 @ResponseStatus(HttpStatus.NOT_FOUND)
-public class TCategoryNotFoundException extends RuntimeException {
+public class TResourceNotFoundException extends RuntimeException {
 
-    public TCategoryNotFoundException(String message) {
+    public TResourceNotFoundException(String message) {
         super(message);
     }
 }

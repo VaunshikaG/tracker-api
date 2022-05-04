@@ -1,4 +1,4 @@
-package com.tapi.trackerapi.repository;
+package com.tapi.trackerapi.repository.User;
 
 //  related to db methods perform operations like create, delete, etc
 
