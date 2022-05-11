@@ -1,4 +1,4 @@
-package com.tapi.trackerapi.NEW.exception;
+package com.tapi.trackerapi.NEW.EXCEPTION;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 

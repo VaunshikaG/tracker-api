@@ -16,7 +16,6 @@ public class UserServiceImpl implements UserService {
     @Autowired
     UserRepository userRepository;
 
-
     @Override
     public User validateUser(String email, String password, String token) throws Unauthorized {
         if(email != null) email = email.toLowerCase();

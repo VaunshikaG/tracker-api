@@ -11,10 +11,8 @@ public interface UserRepository {
 
     User findByEmailAndPassword(String email, String password) throws Unauthorized;
 
-
     //  to check email exists or not for new registration
     Integer getCountByEmail(String email);
-
 
     //  to find user by id
     User findById(Integer userId);
