@@ -1,12 +1,12 @@
-package com.tapi.trackerapi.NEW.USER;
+package com.tapi.trackerapi.NEW.service;
 
 import com.tapi.trackerapi.NEW.EXCEPTION.TResourceNotFoundException;
+import com.tapi.trackerapi.NEW.model.User;
+import com.tapi.trackerapi.NEW.repository.UserRepo;
 import com.tapi.trackerapi.Tracker.exceptions.Unauthorized;
-import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;

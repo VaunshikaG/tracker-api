@@ -1,8 +1,10 @@
-package com.tapi.trackerapi.NEW.USER;
+package com.tapi.trackerapi.NEW.controller;
 
 import com.tapi.trackerapi.NEW.HELPER.Constants;
 import com.tapi.trackerapi.NEW.HELPER.ResponseHandler;
 import com.tapi.trackerapi.NEW.EXCEPTION.TResourceNotFoundException;
+import com.tapi.trackerapi.NEW.model.User;
+import com.tapi.trackerapi.NEW.service.UserService;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;

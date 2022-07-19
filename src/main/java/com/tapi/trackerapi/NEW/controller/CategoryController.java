@@ -1,7 +1,9 @@
-package com.tapi.trackerapi.NEW.CATEGORY;
+package com.tapi.trackerapi.NEW.controller;
 
+import com.tapi.trackerapi.NEW.model.Category;
 import com.tapi.trackerapi.NEW.HELPER.ResponseHandler;
 import com.tapi.trackerapi.NEW.EXCEPTION.TResourceNotFoundException;
+import com.tapi.trackerapi.NEW.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -56,8 +58,8 @@ public class CategoryController {
     //  update category
     @PutMapping("/update/{categoryId}")
     public ResponseEntity<Object> updateCategory(
-                                                 @PathVariable(value = "categoryId") Integer categoryId,
-                                                 @RequestBody Category category) throws TResourceNotFoundException {
+            @PathVariable(value = "categoryId") Integer categoryId,
+            @RequestBody Category category) throws TResourceNotFoundException {
         try {
             Category category1 = categoryService.updateCategory(category, categoryId);
 

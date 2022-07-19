@@ -1,6 +1,6 @@
-package com.tapi.trackerapi.NEW.USER;
+package com.tapi.trackerapi.NEW.service;
 
-import com.tapi.trackerapi.NEW.EXCEPTION.TResourceNotFoundException;
+import com.tapi.trackerapi.NEW.model.User;
 
 import java.util.List;
 

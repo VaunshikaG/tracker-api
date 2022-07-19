@@ -1,4 +1,6 @@
-package com.tapi.trackerapi.NEW.CATEGORY;
+package com.tapi.trackerapi.NEW.service;
+
+import com.tapi.trackerapi.NEW.model.Category;
 
 import java.util.List;
 
