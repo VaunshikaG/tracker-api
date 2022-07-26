@@ -1,4 +1,4 @@
-package com.tapi.trackerapi.EXPENSE.HELPER;
+package com.tapi.trackerapi.EXPENSE.helper;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

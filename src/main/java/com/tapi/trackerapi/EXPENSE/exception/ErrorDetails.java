@@ -1,4 +1,4 @@
-package com.tapi.trackerapi.EXPENSE.EXCEPTION;
+package com.tapi.trackerapi.EXPENSE.exception;
 import java.util.Date;
 
 public class ErrorDetails {

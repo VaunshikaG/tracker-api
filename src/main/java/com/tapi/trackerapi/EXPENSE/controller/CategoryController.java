@@ -1,7 +1,7 @@
 package com.tapi.trackerapi.EXPENSE.controller;
 
-import com.tapi.trackerapi.EXPENSE.EXCEPTION.TResourceNotFoundException;
-import com.tapi.trackerapi.EXPENSE.HELPER.ResponseHandler;
+import com.tapi.trackerapi.EXPENSE.exception.TResourceNotFoundException;
+import com.tapi.trackerapi.EXPENSE.helper.ResponseHandler;
 import com.tapi.trackerapi.EXPENSE.model.Category;
 import com.tapi.trackerapi.EXPENSE.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,11 +13,12 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/tracker/category")
+@RequestMapping("/expense/category")
 public class CategoryController {
 
     @Autowired
     CategoryService categoryService;
+    String str = "null";
 
     //  get category
     @GetMapping("")
@@ -26,7 +27,7 @@ public class CategoryController {
             List<Category> result = categoryService.allCategory();
             return ResponseHandler.generateResponse("Successfully retrieved data!", HttpStatus.OK, result);
         } catch (Exception e) {
-            return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, null);
+            return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, str);
         }
     }
 
@@ -38,7 +39,7 @@ public class CategoryController {
             Category result = categoryService.createCategory(category);
             return ResponseHandler.generateResponse("Successfully added data!", HttpStatus.OK, result);
         } catch (Exception e) {
-            return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, null);
+            return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, str);
         }
     }
 
@@ -46,36 +47,36 @@ public class CategoryController {
     //  get category_by_id
     @GetMapping("/{categoryId}")
     public ResponseEntity<Object> getCategory_by_id(
-            @PathVariable("categoryId") Integer categoryId) throws TResourceNotFoundException {
+            @PathVariable Integer categoryId) throws TResourceNotFoundException {
         try {
             Category category = categoryService.findById(categoryId);
             return ResponseHandler.generateResponse("Successfully retrieved data!", HttpStatus.OK, category);
         } catch (Exception e) {
-            return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, null);
+            return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, str);
         }
     }
 
     //  delete category
     @DeleteMapping("/{categoryId}")
-    public ResponseEntity<Object> deleteCategory_by_id(@PathVariable("categoryId") Integer categoryId) throws TResourceNotFoundException {
+    public ResponseEntity<Object> deleteCategory_by_id(@PathVariable Integer categoryId) throws TResourceNotFoundException {
         try {
             categoryService.deleteById(categoryId);
             return ResponseHandler.generateResult("Successfully deleted data!", HttpStatus.OK);
         } catch (Exception e) {
-            return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, null);
+            return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, str);
         }
     }
 
     //  update category
     @PutMapping("/{categoryId}")
     public ResponseEntity<Object> updateCategory(
-            @PathVariable("categoryId") Integer categoryId,
+            @PathVariable Integer categoryId,
             @RequestBody Category category) throws TResourceNotFoundException {
         try {
             Category category1 = categoryService.updateCategory(category, categoryId);
             return ResponseHandler.generateResponse("Successfully updated data!", HttpStatus.OK, category1);
         } catch (Exception e) {
-            return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, null);
+            return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, str);
         }
     }
 
