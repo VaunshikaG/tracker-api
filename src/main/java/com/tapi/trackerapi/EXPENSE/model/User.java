@@ -1,5 +1,8 @@
 package com.tapi.trackerapi.EXPENSE.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -20,6 +23,7 @@ public class User implements UserDetails {
     private String email;
 
     @NotEmpty
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 //    @Pattern(regexp = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[@#$%^&-+=()]).{6,15}$")
     private String password;
 

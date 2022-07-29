@@ -19,18 +19,6 @@ public class UserServiceImpl implements UserService {
     private UserRepo userRepo;
 
     @Override
-    public Optional<User> validate(User user) throws TResourceNotFoundException {
-        Optional<User> user1 = userRepo.findByEmail(user.getEmail());
-        if(user1 == null) {
-            throw new RuntimeException("User does not exist.");
-        }
-        if(!user.getPassword().equals(user1.get().getPassword())){
-            throw new RuntimeException("Password mismatch.");
-        }
-        return user1;
-    }
-
-    @Override
     public User createUser(User user) throws TResourceNotFoundException {
         User user1 = new User();
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();

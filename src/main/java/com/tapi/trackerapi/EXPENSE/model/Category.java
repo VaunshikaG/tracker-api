@@ -13,21 +13,20 @@ public class Category implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "categoryId")
+    @Column(name = "categoryId", nullable = false)
     private Integer categoryId;
 
     @NotEmpty
     @Size(min = 3, max = 15, message = "Title length must be between 3 to 10 characters")
-    @Column(nullable = false, length = 50)
+    @Column(nullable = false)
     private String title;
 
     @NotEmpty
     @Size(min = 5, max = 50, message = "Title length must be between 3 to 10 characters")
-    @Column(nullable = false, length = 100)
+    @Column(nullable = false)
     private String description;
 
-    @NotEmpty
-    @Size(min = 0, message = "Amount must be greater than 0")
+    @Column(nullable = false)
     private Double amount;
 
 }

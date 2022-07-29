@@ -14,14 +14,14 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/expense/user")
+@RequestMapping("/expense")
 public class UserController {
 
     @Autowired
     private UserService userService;
 
     //  register user
-    @PostMapping("/register")
+    @PostMapping("/user/register")
     public ResponseEntity<Object> createUser(@Valid @RequestBody User user) {
         try {
             User user1 = userService.createUser(user);
@@ -34,7 +34,7 @@ public class UserController {
 
 
     //  get users
-    @GetMapping("")
+    @GetMapping("/users")
     public ResponseEntity<Object> getUsers() {
         try {
             List<User> result = userService.getUsers();
@@ -46,7 +46,7 @@ public class UserController {
 
 
     //  get user by id
-    @GetMapping("/{userId}")
+    @GetMapping("/user/{userId}")
     public ResponseEntity<Object> getUserById(@Valid @PathVariable("userId") Integer userId) throws TResourceNotFoundException {
         try {
             User user = userService.getUserById(userId);
@@ -57,7 +57,7 @@ public class UserController {
     }
 
     //  update by id
-    @PutMapping("/{userId}")
+    @PutMapping("/user/{userId}")
     public ResponseEntity<Object> updateUser(@RequestBody User user, @PathVariable Integer userId) {
         try {
             User userResponse = userService.updateUser(user, userId);
@@ -68,7 +68,7 @@ public class UserController {
     }
 
     //  delete by id
-    @DeleteMapping("/{userId}")
+    @DeleteMapping("/user/{userId}")
     public ResponseEntity<?> deleteUser(@PathVariable Integer userId) {
         try {
             userService.deleteUser(userId);

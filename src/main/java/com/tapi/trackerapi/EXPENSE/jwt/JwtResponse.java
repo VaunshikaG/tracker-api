@@ -3,13 +3,13 @@ package com.tapi.trackerapi.EXPENSE.jwt;
 import lombok.Data;
 
 @Data
-public class AuthResponse {
+public class JwtResponse {
     private String email;
     private String accessToken;
 
-    public AuthResponse() { }
+    public JwtResponse() { }
 
-    public AuthResponse(String email, String accessToken) {
+    public JwtResponse(String email, String accessToken) {
         this.email = email;
         this.accessToken = accessToken;
     }

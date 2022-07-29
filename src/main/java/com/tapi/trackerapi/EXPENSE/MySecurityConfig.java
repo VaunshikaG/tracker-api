@@ -1,7 +1,8 @@
 package com.tapi.trackerapi.EXPENSE;
 
+import com.tapi.trackerapi.EXPENSE.jwt.CustomUserDetailService;
+import com.tapi.trackerapi.EXPENSE.jwt.JwtAuthenticationEntryPoint;
 import com.tapi.trackerapi.EXPENSE.jwt.JwtTokenFilter;
-import com.tapi.trackerapi.EXPENSE.repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,11 +12,9 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 
 @Configuration
@@ -23,30 +22,47 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class MySecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    private UserRepo userRepo;
+    private CustomUserDetailService customUserDetailService;
+
+    @Autowired
+    private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
 
     @Autowired
     private JwtTokenFilter jwtTokenFilter;
 
+    public static final String[] PUBLIC_URLS = {
+            "/expense/user/login",
+            "/expense/user/register",
+            "/expense/users",
+    };
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable();
+        http
+                .csrf().disable()
+                .authorizeHttpRequests()
+                .antMatchers(PUBLIC_URLS).permitAll()
+                .anyRequest().authenticated()
+                .and()
+                .exceptionHandling().authenticationEntryPoint(this.jwtAuthenticationEntryPoint)
+                .and()
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+        ;
 
-        http.authorizeRequests().antMatchers("/expense/login").permitAll()
-                .antMatchers("/expense/user/register").permitAll()
-                .anyRequest().authenticated();
+//        http.authorizeRequests()
+//                .antMatchers("/expense/login").permitAll()
+//                .antMatchers("/expense/user/register").permitAll()
+//                .anyRequest().authenticated();
+//
+//        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
-        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-
-        http.addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(this.jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(
-                username -> userRepo.findByEmail(username).orElseThrow(
-                                () -> new UsernameNotFoundException("User " + username + " not found.")));
+        auth.userDetailsService(this.customUserDetailService).passwordEncoder(passwordEncoder());
     }
 
     @Bean
