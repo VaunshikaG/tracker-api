@@ -1,19 +1,23 @@
 package com.tapi.trackerapi.EXPENSE.service;
 
 import com.tapi.trackerapi.EXPENSE.model.Category;
+import com.tapi.trackerapi.EXPENSE.model.CategoryDto;
 
 import java.util.List;
 
 public interface CategoryService {
 
-    List<Category> allCategory();
+    CategoryDto createCategory(CategoryDto categoryDto, Integer userId);
 
-    Category createCategory(Category category);
+    CategoryDto findById(Integer categoryId);
 
-    Category findById(Integer id);
+    void deleteById(Integer categoryId);
 
-    void deleteById(Integer id);
+    CategoryDto updateCategory(CategoryDto categoryDto, Integer categoryId);
 
-    Category updateCategory(Category category, Integer categoryId);
+    List<CategoryDto> allCategory();
 
+    List<CategoryDto> categoryByUser(Integer userId);
+
+    List<CategoryDto> searchCategory(String keyword);
 }

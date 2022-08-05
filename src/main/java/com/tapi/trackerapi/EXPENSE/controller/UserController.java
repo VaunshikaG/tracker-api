@@ -3,6 +3,8 @@ package com.tapi.trackerapi.EXPENSE.controller;
 import com.tapi.trackerapi.EXPENSE.exception.TResourceNotFoundException;
 import com.tapi.trackerapi.EXPENSE.helper.ResponseHandler;
 import com.tapi.trackerapi.EXPENSE.model.User;
+import com.tapi.trackerapi.EXPENSE.model.User;
+import com.tapi.trackerapi.EXPENSE.model.UserDto;
 import com.tapi.trackerapi.EXPENSE.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,11 +24,11 @@ public class UserController {
 
     //  register user
     @PostMapping("/user/register")
-    public ResponseEntity<Object> createUser(@Valid @RequestBody User user) {
+    public ResponseEntity<?> createUser(@Valid @RequestBody UserDto user) throws TResourceNotFoundException {
         try {
-            User user1 = userService.createUser(user);
-            return ResponseHandler.generateResponse("User registered successfully", HttpStatus.CREATED,
-                    user1);
+            UserDto dto = userService.createUser(user);
+            System.out.println("user = " + dto.getUid());
+            return ResponseHandler.generateResponse("User registered successfully", HttpStatus.CREATED, dto);
         } catch (Exception e) {
             return ResponseHandler.generateResult(e.getMessage(), HttpStatus.MULTI_STATUS);
         }
@@ -35,9 +37,9 @@ public class UserController {
 
     //  get users
     @GetMapping("/users")
-    public ResponseEntity<Object> getUsers() {
+    public ResponseEntity<?> getUsers() throws TResourceNotFoundException {
         try {
-            List<User> result = userService.getUsers();
+            List<UserDto> result = this.userService.getUsers();
             return ResponseHandler.generateResponse("Successfully retrieved data!", HttpStatus.OK, result);
         } catch (Exception e) {
             return ResponseHandler.generateResult(e.getMessage(), HttpStatus.MULTI_STATUS);
@@ -47,10 +49,10 @@ public class UserController {
 
     //  get user by id
     @GetMapping("/user/{userId}")
-    public ResponseEntity<Object> getUserById(@Valid @PathVariable("userId") Integer userId) throws TResourceNotFoundException {
+    public ResponseEntity<?> getUserById(@Valid @PathVariable("userId") Integer userId) throws TResourceNotFoundException {
         try {
-            User user = userService.getUserById(userId);
-            return ResponseHandler.generateResponse("Successfully retrieved data!", HttpStatus.OK, user);
+            UserDto dto = userService.getUserById(userId);
+            return ResponseHandler.generateResponse("Successfully retrieved data!", HttpStatus.OK, dto);
         } catch (Exception e) {
             return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, "User " + userId + " not found.");
         }
@@ -58,10 +60,10 @@ public class UserController {
 
     //  update by id
     @PutMapping("/user/{userId}")
-    public ResponseEntity<Object> updateUser(@RequestBody User user, @PathVariable Integer userId) {
+    public ResponseEntity<?> updateUser(@RequestBody UserDto User, @PathVariable Integer userId) {
         try {
-            User userResponse = userService.updateUser(user, userId);
-            return ResponseHandler.generateResponse("Successfully retrieved data!", HttpStatus.OK, userResponse);
+            UserDto dto = userService.updateUser(User, userId);
+            return ResponseHandler.generateResponse("Successfully retrieved data!", HttpStatus.OK, dto);
         } catch (Exception e) {
             return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, "User " + userId + " not found.");
         }

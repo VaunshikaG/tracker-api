@@ -1,4 +1,4 @@
-package com.tapi.trackerapi.EXPENSE;
+package com.tapi.trackerapi.EXPENSE.config;
 
 import com.tapi.trackerapi.EXPENSE.jwt.CustomUserDetailService;
 import com.tapi.trackerapi.EXPENSE.jwt.JwtAuthenticationEntryPoint;
@@ -15,10 +15,12 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 
 @Configuration
 @EnableWebSecurity
+@EnableWebMvc
 public class MySecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -34,6 +36,11 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
             "/expense/user/login",
             "/expense/user/register",
             "/expense/users",
+            "/v3/api-docs",
+            "/v2/api-docs",
+            "/swagger-resources/**",
+            "/swagger-ui/**",
+            "/webjars/**"
     };
 
     @Override

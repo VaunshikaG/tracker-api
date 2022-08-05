@@ -1,20 +1,20 @@
 package com.tapi.trackerapi.EXPENSE.service;
 
 import com.tapi.trackerapi.EXPENSE.model.User;
+import com.tapi.trackerapi.EXPENSE.model.UserDto;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface UserService {
 
-    public User createUser(User user);
+    UserDto createUser(UserDto userDto);
 
-    public User updateUser(User user, Integer userId);
+    UserDto updateUser(UserDto userDto, Integer userId);
 
     void deleteUser(Integer userId);
 
-    public User getUserById(Integer userId);
+    UserDto getUserById(Integer userId);
 
-    public List<User> getUsers();
+    List<UserDto> getUsers();
 
 }

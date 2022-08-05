@@ -2,6 +2,7 @@ package com.tapi.trackerapi.EXPENSE.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
@@ -9,7 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
-import java.util.Collection;
+import java.util.*;
 
 @Data
 @Entity
@@ -20,12 +21,20 @@ public class User implements UserDetails {
     private Integer uid;
 
     @Email(message = "Invalid email!")
+    @Column(nullable = false)
     private String email;
 
     @NotEmpty
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-//    @Pattern(regexp = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[@#$%^&-+=()]).{6,15}$")
+    @Column(nullable = false)
     private String password;
+
+
+    @JsonManagedReference
+    @OneToMany(mappedBy="user", cascade=CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Category> categories=new ArrayList<>();
+//    private Set<Category> categories = new HashSet<>();
+
 
     public User() { }
 
@@ -63,5 +72,6 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
 }
 
