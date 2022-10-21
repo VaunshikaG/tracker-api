@@ -10,11 +10,11 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-//@Transactional
 public class CategoryServiceImpl implements CategoryService {
 
     @Autowired
@@ -64,7 +64,8 @@ public class CategoryServiceImpl implements CategoryService {
         Category category = this.categoryRepo.findById(categoryId).orElseThrow(
                 () -> new TResourceNotFoundException("Category " + categoryId + " not found."));
 
-        categoryRepo.delete(category);
+
+        this.categoryRepo.delete(category);
     }
 
     @Override

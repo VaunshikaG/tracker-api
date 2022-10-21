@@ -50,7 +50,7 @@ public class CategoryController {
     @DeleteMapping("/category/{categoryId}")
     public ResponseEntity<?> deleteCategory_by_id(@PathVariable Integer categoryId) throws TResourceNotFoundException {
         try {
-            categoryService.deleteById(categoryId);
+            this.categoryService.deleteById(categoryId);
             return ResponseHandler.generateResult("Successfully deleted data!", HttpStatus.OK);
         } catch (Exception e) {
             return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, str);

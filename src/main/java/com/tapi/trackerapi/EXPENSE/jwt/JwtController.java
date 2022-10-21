@@ -3,9 +3,11 @@ package com.tapi.trackerapi.EXPENSE.jwt;
 import javax.validation.Valid;
 
 import com.tapi.trackerapi.EXPENSE.helper.ResponseHandler;
+import com.tapi.trackerapi.EXPENSE.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.security.authentication.*;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,13 +29,19 @@ public class JwtController {
     @PostMapping("/expense/user/login")
     public ResponseEntity<?> login(@RequestBody @Valid JwtRequest jwtRequest) {
         try {
-            this.authenticate(jwtRequest.getEmail(), jwtRequest.getPassword());
+            Authentication authentication = authManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(
+                            jwtRequest.getEmail(),
+                            jwtRequest.getPassword()));
 
             UserDetails userDetails = this.customUserDetailService.loadUserByUsername(jwtRequest.getEmail());
 
             String accessToken = this.jwtUtil.generateToken(userDetails);
 
+            User user = (User) authentication.getPrincipal();
+
             Map<String, String> map = new HashMap<>();
+            map.put("userId", user.getUid().toString());
             map.put("email", userDetails.getUsername());
             map.put("token", accessToken);
             return ResponseHandler.generateResponse("Successfully retrieved data!", HttpStatus.OK, map);

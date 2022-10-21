@@ -31,7 +31,7 @@ public class User implements UserDetails {
 
 
     @JsonManagedReference
-    @OneToMany(mappedBy="user", cascade=CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy="user", cascade=CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private List<Category> categories=new ArrayList<>();
 //    private Set<Category> categories = new HashSet<>();
 

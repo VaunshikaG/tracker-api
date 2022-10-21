@@ -2,16 +2,15 @@ package com.tapi.trackerapi.EXPENSE.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
+
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
-import java.io.Serializable;
 
 @Data
 @Entity
 @Table(name = "category")
-
-public class Category implements Serializable {
+public class Category {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,6 +24,7 @@ public class Category implements Serializable {
 
     @JsonBackReference
     @ManyToOne
+    @EqualsAndHashCode.Exclude @ToString.Exclude
     private User user;
 
 }
