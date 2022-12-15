@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
-
+@CrossOrigin(maxAge = 40000)
 @RestController
 @RequestMapping("/expense")
 public class CategoryController {
@@ -51,9 +51,11 @@ public class CategoryController {
     public ResponseEntity<?> deleteCategory_by_id(@PathVariable Integer categoryId) throws TResourceNotFoundException {
         try {
             this.categoryService.deleteById(categoryId);
+            System.out.println("categoryId = " + categoryId);
             return ResponseHandler.generateResult("Successfully deleted data!", HttpStatus.OK);
         } catch (Exception e) {
-            return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, str);
+            return ResponseHandler.generateResult(e.getMessage(), HttpStatus.MULTI_STATUS);
+//            return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, str);
         }
     }
 
@@ -71,6 +73,7 @@ public class CategoryController {
 
 
     //  get category_by_id
+//    @CrossOrigin(origins = "http://localhost:8080")
     @GetMapping("/category/{categoryId}")
     public ResponseEntity<?> getCategory_by_id(
             @PathVariable Integer categoryId) throws TResourceNotFoundException {

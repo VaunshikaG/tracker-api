@@ -19,7 +19,7 @@ public class Category {
 
     private String title;
     private String description;
-    private Double amount;
+    private Integer amount;
 
 
     @JsonBackReference

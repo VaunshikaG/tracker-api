@@ -8,7 +8,7 @@ public class CategoryDto {
     private Integer categoryId;
     private String title;
     private String description;
-    private Double amount;
+    private Integer amount;
     private UserDto user;
 
 }

@@ -15,6 +15,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 
+@CrossOrigin(maxAge = 50000)
 @RestController
 @RequestMapping("/expense")
 public class UserController {
