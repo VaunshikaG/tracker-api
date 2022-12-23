@@ -35,6 +35,7 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
     private JwtTokenFilter jwtTokenFilter;
 
     public static final String[] PUBLIC_URLS = {
+            "/expense/user/otp",
             "/expense/user/login",
             "/expense/user/register",
             "/expense/users",

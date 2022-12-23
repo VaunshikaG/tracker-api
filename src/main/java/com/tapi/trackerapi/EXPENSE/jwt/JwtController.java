@@ -1,16 +1,21 @@
 package com.tapi.trackerapi.EXPENSE.jwt;
 
-import javax.validation.Valid;
-
 import com.tapi.trackerapi.EXPENSE.helper.ResponseHandler;
 import com.tapi.trackerapi.EXPENSE.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.*;
-import org.springframework.security.authentication.*;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -53,8 +58,8 @@ public class JwtController {
     }
 
     private void authenticate(String email, String password) {
-       UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(email, password);
-       this.authManager.authenticate(authenticationToken);
+        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(email, password);
+        this.authManager.authenticate(authenticationToken);
     }
 
 }
