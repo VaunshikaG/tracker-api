@@ -31,7 +31,7 @@ public class EmailController {
             Random random = new Random(100000);
             int otp = random.nextInt(999999);
 
-            char[] one = OTP(6);
+            char[] one = OTP(4);
             int otp1 = Integer.parseInt(String.valueOf(one));
             String subject = "Email Verification";
             String message = "Hello ,\n\n" +
